@@ -38,8 +38,9 @@ app.use((err, req, res, next) => {
   console.log("***************************************")
   console.log("**************エラー!******************")
   console.log("***************************************")
+  console.log(err) //* ReferenceError: hoge is not defined
   // res.status(500).send("エラーが出てきた")
-  next() //* これを呼ぶと普通のミドルウェアが呼び出されちゃう　Cannot GET /error
+  next(err) //* これを呼ぶと普通のミドルウェアが呼び出されちゃう　Cannot GET /error
 })
 
 app.listen(3001, () => {
