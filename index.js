@@ -12,7 +12,7 @@ const verifyPassword =
       return next() //* returnいる
     }
     // res.status(404).send("error")
-    throw new AppError("パスワードが必要です",401) //* こんな感じで呼べる独自のclassあったほうがいい
+    throw new AppError("パスワードが必要です", 401) //* こんな感じで呼べる独自のclassあったほうがいい
   })
 
 app.get("/", (req, res) => {
@@ -32,16 +32,21 @@ app.use((req, res) => {
   res.status(404).send("<h1>not found</h1>")
 })
 
+// app.use((err, req, res, next) => {
+//   //* errorハンドラーは最後に書く
+//   //* http://localhost:3001/secrets?password=super とかにアクセスしたらパス自体はあるけどerrorが出る
+//   //* それがデフォルトのエラーハンドラからこれになってる resは返らない
+//   console.log("***************************************")
+//   console.log("**************エラー!******************")
+//   console.log("***************************************")
+//   console.log(err) //* ReferenceError: hoge is not defined
+//   // res.status(500).send("エラーが出てきた")
+//   next(err) //* これを呼ぶと普通のミドルウェアが呼び出されちゃう　Cannot GET /error
+// })
+
 app.use((err, req, res, next) => {
-  //* errorハンドラーは最後に書く
-  //* http://localhost:3001/secrets?password=super とかにアクセスしたらパス自体はあるけどerrorが出る
-  //* それがデフォルトのエラーハンドラからこれになってる resは返らない
-  console.log("***************************************")
-  console.log("**************エラー!******************")
-  console.log("***************************************")
-  console.log(err) //* ReferenceError: hoge is not defined
-  // res.status(500).send("エラーが出てきた")
-  next(err) //* これを呼ぶと普通のミドルウェアが呼び出されちゃう　Cannot GET /error
+  const { status } = err //* errにはAppErrorから来たerrorが返ってくる
+  res.status(status).send("エラー")
 })
 
 app.listen(3001, () => {
