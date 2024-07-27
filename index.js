@@ -11,6 +11,7 @@ const verifyPassword =
       return next() //* returnいる
     }
     // res.status(404).send("error")
+    res.status(401) //* 無理やり設定
     throw new Error("パスワードが必要です")
   })
 
