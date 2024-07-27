@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const AppError = require("./AppError")
 
 const verifyPassword =
   ("/secrets",
@@ -11,8 +12,7 @@ const verifyPassword =
       return next() //* returnいる
     }
     // res.status(404).send("error")
-    res.status(401) //* 無理やり設定
-    throw new Error("パスワードが必要です")
+    throw new AppError("パスワードが必要です",401) //* こんな感じで呼べる独自のclassあったほうがいい
   })
 
 app.get("/", (req, res) => {
