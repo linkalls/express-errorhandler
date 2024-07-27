@@ -31,6 +31,12 @@ app.use((req,res)=>{
   res.status(404).send("<h1>not found</h1>")
 })
 
+app.use((err,req,res,next)=>{ //* errorハンドラーは最後に書く
+console.log("***************************************")
+console.log("**************エラー!******************")
+console.log("***************************************")
+})
+
 
 app.listen(3001, () => {
   console.log("localhost:3001で起動中")
