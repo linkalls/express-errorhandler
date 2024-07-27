@@ -8,7 +8,8 @@ const verifyPassword = ("/secrets",(req,res,next)=>{ //* 関数式に変えち�
   if(password === "supersecret") {
    return  next() //* returnいる
   }
-  res.status(404).send("error")
+  // res.status(404).send("error")
+  throw new Error("パスワードが必要です") 
 })
 
 
