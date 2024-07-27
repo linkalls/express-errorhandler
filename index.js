@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 
 app.get("/error",(req,res)=>{
-  hoge.moge()
+  hoge.moge() //* わけわかんねえのだけやばれたらエラーがresponseで返commentsって行っちゃう
 })
 
 app.get("/secrets",verifyPassword,(req,res)=>{ //* next()がさすのがverifyPasswordの後ろだから前に書かなきゃダメ
